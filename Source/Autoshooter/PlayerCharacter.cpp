@@ -2,6 +2,7 @@
 
 #include "PlayerCharacter.h"
 #include "Camera/CameraComponent.h"
+#include "Components/CapsuleComponent.h"
 
 // Sets the default values for this character's properties
 APlayerCharacter::APlayerCharacter()
@@ -11,9 +12,14 @@ APlayerCharacter::APlayerCharacter()
 
 	CameraComponent->SetupAttachment(RootComponent);
 
+	// Calculate the vertical position of our sprite to position it at the bottom of the capsule
+	float capsuleHeight = GetCapsuleComponent()->GetScaledCapsuleHalfHeight();
+	float bias = 2.f;
+	float spriteVerticalPos = -(capsuleHeight + bias);
+
 	CameraComponent->SetRelativeLocationAndRotation(FVector(1167.f, 0.f, 1032.f), FRotator(-CameraAngle, 180.f, 0.f));
 
-	GetSprite()->SetRelativeLocationAndRotation(FVector(0.f, 0.f, 0.f), FRotator(0.f, -90.f, -CameraAngle));
+	GetSprite()->SetRelativeLocationAndRotation(FVector(0.f, 0.f, spriteVerticalPos), FRotator(0.f, -90.f, -CameraAngle));
 	GetSprite()->SetRelativeScale3D(FVector(4));
 }
 
