@@ -8,8 +8,8 @@ void AAutoshooterPlayerController::OnPossess(APawn* aPawn)
 	Super::OnPossess(aPawn);
 
 	// Store the player reference
-	GameCharacter = Cast<APlayerCharacter>(aPawn);
-	checkf(GameCharacter, TEXT("AAutoshooterPlayerController can only possess APlayerCharacter pawns"));
+	GameCharacter = Cast<ACharacterBase>(aPawn);
+	checkf(GameCharacter, TEXT("AAutoshooterPlayerController can only possess ACharacterBase pawns"));
 
 	EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent);
 	checkf(EnhancedInputComponent, TEXT("Unable to get reference to EnhancedInputComponent"));

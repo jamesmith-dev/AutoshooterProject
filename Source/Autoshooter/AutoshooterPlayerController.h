@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "InputAction.h"
-#include "PlayerCharacter.h"
+#include "Character/CharacterBase.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "AutoshooterPlayerController.generated.h"
@@ -31,7 +31,7 @@ private:
 	TObjectPtr<UEnhancedInputComponent> EnhancedInputComponent = nullptr;
 
 	UPROPERTY()
-	TObjectPtr<APlayerCharacter> GameCharacter = nullptr;
+	TObjectPtr<ACharacterBase> GameCharacter = nullptr;
 
 	GENERATED_BODY()
 	
