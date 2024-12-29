@@ -6,6 +6,7 @@
 #include "CharacterBase.h"
 #include "WeaponBase.h"
 #include "UObject/UObjectGlobals.h"
+#include "Components/SphereComponent.h"
 #include "CharacterClassBase.generated.h"
 
 UENUM(BlueprintType, meta=(Bitflags, UseEnumValuesAsMaskValuesInEditor="true"))
@@ -27,7 +28,21 @@ class AUTOSHOOTER_API ACharacterClassBase : public ACharacterBase
 public:
 	ACharacterClassBase();
 
+	virtual void BeginPlay() override;
+
 	void Tick(float deltaTime) override;
+
+	UFUNCTION(BlueprintCallable)
+	void AddExp(int exp);
+
+	UFUNCTION(BlueprintCallable)
+	int GetCurrentExp();
+
+	UFUNCTION(BlueprintCallable)
+	int GetExpLevel();
+
+	UFUNCTION(BlueprintCallable)
+	int GetTotalExpForLevelUp();
 
 protected:
 
@@ -63,11 +78,26 @@ protected:
 	float ExpGain;
 	UPROPERTY(EditAnywhere, Category="Stats|Miscellaneous")
 	float PickupRange;	
+
+	// Experience and Level
+	int ExpLevel = 1;
+	int CurrentExp = 0;
+	int TotalExpForLevelUp = 40;
 	
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, Category="Class Types")
 	TSubclassOf<UWeaponBase> WeaponClass;
 
 	TObjectPtr<UWeaponBase> Weapon;
+
+	TObjectPtr<USphereComponent> PickupSphere;
+
+	UPROPERTY(EditAnywhere, Category="Class Types")
+	TSubclassOf<UUserWidget> ExpBarClass;
+
+	TObjectPtr<UUserWidget> ExpBar;
+
+protected:
+	void LevelUp();
 
 private:
 	GENERATED_BODY()
